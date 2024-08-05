@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ user.first_name }} {{ user.last_name }}{% endblock %}
+{% block content %}
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+    <img src="{{ user.image_url }}" alt="Profile image" width="150">
+    <h2>Posts</h2>
+    <a href="{{ url_for('new_post', user_id=user.id) }}" class="btn btn-primary">Add Post</a>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{{ url_for('show_post', post_id=post.id) }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-primary">Edit</a></p>
+    <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+{% endblock %}
